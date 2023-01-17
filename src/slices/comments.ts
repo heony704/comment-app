@@ -6,7 +6,7 @@ const initialState: Comment[] = [];
 
 export const createComment = createAsyncThunk(
   'comment/CREATE',
-  async (comment: Comment) => {
+  async (comment: Omit<Comment, 'id'>) => {
     const res = await CommentsService.create(comment);
     return res.data;
   },

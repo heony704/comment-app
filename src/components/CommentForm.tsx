@@ -1,5 +1,8 @@
+import { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
-// import { Comment } from '../types';
+import { createComment } from '../slices/comments';
+import { AppDispatch } from '../store';
 
 const FormStyle = styled.div`
   & > form {
@@ -25,35 +28,79 @@ const FormStyle = styled.div`
 `;
 
 function CommentForm() {
+  const initialCommentState = {
+    profile_url: '',
+    author: '',
+    content: '',
+    createdAt: '',
+  };
+  const [comment, setComment] = useState(initialCommentState);
+
+  const dispatch = useDispatch<AppDispatch>();
+
+  const handleChange = (
+    event:
+      | React.ChangeEvent<HTMLInputElement>
+      | React.ChangeEvent<HTMLTextAreaElement>,
+  ) => {
+    const { name, value } = event.target;
+    setComment({ ...comment, [name]: value });
+  };
+
+  const saveComment = () => {
+    dispatch(createComment(comment))
+      .unwrap()
+      .then(data => {
+        setComment({
+          profile_url: data.profile_url,
+          author: data.author,
+          content: data.content,
+          createdAt: data.createdAt,
+        });
+      })
+      .catch(e => console.log(e));
+  };
+
   return (
     <FormStyle>
       <form>
         <input
-          // value={comment.profile_url}
+          value={comment.profile_url || ''}
+          onChange={handleChange}
           type="text"
           name="profile_url"
           placeholder="https://picsum.photos/id/1/50/50"
           required
         />
         <br />
-        <input type="text" name="author" placeholder="작성자" />
+        <input
+          value={comment.author || ''}
+          onChange={handleChange}
+          type="text"
+          name="author"
+          placeholder="작성자"
+        />
         <br />
         <textarea
-          // value={comment.content}
+          value={comment.content || ''}
+          onChange={handleChange}
           name="content"
           placeholder="내용"
           required
         />
         <br />
         <input
-          // value={comment.createdAt}
+          value={comment.createdAt || ''}
+          onChange={handleChange}
           type="text"
           name="createdAt"
           placeholder="2020-05-30"
           required
         />
         <br />
-        <button type="submit">등록</button>
+        <button type="button" onClick={saveComment}>
+          등록
+        </button>
       </form>
     </FormStyle>
   );

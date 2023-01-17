@@ -5,7 +5,8 @@ const getAll = () => http.get('/comments');
 
 const get = (id: number) => http.get(`/comments/${id}`);
 
-const create = (comment: Comment) => http.post('/comments', comment);
+const create = (comment: Omit<Comment, 'id'>) =>
+  http.post('/comments', comment);
 
 const update = (id: number, comment: Omit<Comment, 'id'>) =>
   http.put(`/comments/${id}`, comment);
