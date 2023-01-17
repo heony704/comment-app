@@ -1,4 +1,4 @@
-export type Comment = {
+export type CommentType = {
   id: number;
   profile_url: string;
   author: string;
@@ -6,6 +6,6 @@ export type Comment = {
   createdAt: string;
 };
 
-export type Action = {
+export type ActionType = {
   type: string;
 };

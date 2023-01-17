@@ -1,12 +1,12 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import CommentsService from '../services/CommentsService';
-import { Comment } from '../types';
+import { CommentType } from '../types';
 
-const initialState: Comment[] = [];
+const initialState: CommentType[] = [];
 
 export const createComment = createAsyncThunk(
   'comment/CREATE',
-  async (comment: Omit<Comment, 'id'>) => {
+  async (comment: Omit<CommentType, 'id'>) => {
     const res = await CommentsService.create(comment);
     return res.data;
   },
@@ -19,7 +19,7 @@ export const readComments = createAsyncThunk('comment/READ', async () => {
 
 export const updateComment = createAsyncThunk(
   'comment/UPDATE',
-  async (comment: Comment) => {
+  async (comment: CommentType) => {
     const res = await CommentsService.update(comment.id, {
       profile_url: comment.profile_url,
       author: comment.author,
@@ -32,7 +32,7 @@ export const updateComment = createAsyncThunk(
 
 export const deleteComment = createAsyncThunk(
   'comment/DELETE',
-  async ({ id }: { id: number }) => {
+  async (id: number) => {
     await CommentsService.remove(id);
     return { id };
   },
