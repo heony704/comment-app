@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+// import { Comment } from '../types';
 
 const FormStyle = styled.div`
   & > form {
@@ -28,6 +29,7 @@ function CommentForm() {
     <FormStyle>
       <form>
         <input
+          // value={comment.profile_url}
           type="text"
           name="profile_url"
           placeholder="https://picsum.photos/id/1/50/50"
@@ -36,9 +38,20 @@ function CommentForm() {
         <br />
         <input type="text" name="author" placeholder="작성자" />
         <br />
-        <textarea name="content" placeholder="내용" required />
+        <textarea
+          // value={comment.content}
+          name="content"
+          placeholder="내용"
+          required
+        />
         <br />
-        <input type="text" name="createdAt" placeholder="2020-05-30" required />
+        <input
+          // value={comment.createdAt}
+          type="text"
+          name="createdAt"
+          placeholder="2020-05-30"
+          required
+        />
         <br />
         <button type="submit">등록</button>
       </form>

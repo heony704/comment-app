@@ -1,4 +1,8 @@
+import { useEffect, useCallback } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
+import { readComments } from '../slices/comments';
+import { RootState, AppDispatch } from '../store';
 
 const Comment = styled.div`
   padding: 7px 10px;
@@ -34,21 +38,21 @@ const Button = styled.div`
   }
 `;
 
-// 임시 데이터 입니다. 코드 작성시 data 부분을 지워주세요
-const data = [
-  {
-    id: 1,
-    profile_url: 'https://picsum.photos/id/1/50/50',
-    author: 'abc_1',
-    content: 'UI 테스트는 어떻게 진행하나요',
-    createdAt: '2020-05-01',
-  },
-];
-
 function CommentList() {
+  const comments = useSelector((state: RootState) => state.comments);
+  const dispatch = useDispatch<AppDispatch>();
+
+  const initFetch = useCallback(() => {
+    dispatch(readComments());
+  }, [dispatch]);
+
+  useEffect(() => {
+    initFetch();
+  }, [initFetch]);
+
   return (
     <>
-      {data.map(comment => (
+      {comments.map(comment => (
         <Comment key={comment.id}>
           <img src={comment.profile_url} alt="" />
 

@@ -19,5 +19,10 @@
     "project": "./tsconfig.json"
   },
   "plugins": ["react", "@typescript-eslint"],
-  "rules": { "react/react-in-jsx-scope": "off" }
+  "rules": {
+    "react/react-in-jsx-scope": "off",
+    "default-param-last": "off",
+    "@typescript-eslint/default-param-last": "off",
+    "no-param-reassign": "off"
+  }
 }
