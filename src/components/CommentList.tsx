@@ -25,7 +25,7 @@ const Content = styled.div`
 const Button = styled.div`
   text-align: right;
   margin: 10px 0;
-  & > a {
+  & > button {
     margin-right: 10px;
     padding: 0.375rem 0.75rem;
     border-radius: 0.25rem;
@@ -48,8 +48,8 @@ const data = [
 function CommentList() {
   return (
     <>
-      {data.map((comment, key) => (
-        <Comment key={key}>
+      {data.map(comment => (
+        <Comment key={comment.id}>
           <img src={comment.profile_url} alt="" />
 
           {comment.author}
@@ -59,8 +59,8 @@ function CommentList() {
           <Content>{comment.content}</Content>
 
           <Button>
-            <a>수정</a>
-            <a>삭제</a>
+            <button type="button">수정</button>
+            <button type="button">삭제</button>
           </Button>
 
           <hr />
